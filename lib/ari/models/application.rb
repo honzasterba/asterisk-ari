@@ -10,9 +10,17 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Application < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :name, :channel_ids, :bridge_ids, :endpoint_ids, :device_names, :events_allowed, :events_disallowed
+
+    def events_allowed=(val)
+      @events_allowed ||= val.map { |v| object.new(v) }
+    end
+
+    def events_disallowed=(val)
+      @events_disallowed ||= val.map { |v| object.new(v) }
+    end
 
 
   end

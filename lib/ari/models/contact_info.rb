@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class ContactInfo < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :uri, :contact_status, :aor, :roundtrip_usec
 
 
   end

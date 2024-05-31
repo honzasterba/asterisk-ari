@@ -37,14 +37,14 @@ module Ari
       end
 
       def generate_resource
-        erb = ERB.new(IO.read(template_path('resource')), nil, '-')
+        erb = ERB.new(IO.read(template_path('resource')), trim_mode: '-')
         File.open(File.join(destination_path('resources'), "#{resource_name}.rb"), 'w') do |f|
           f.write erb.result(binding)
         end
       end
 
       def generate_models
-        erb = ERB.new(IO.read(template_path('model')), nil, '-')
+        erb = ERB.new(IO.read(template_path('model')), trim_mode: '-')
         models.each do |model|
           next if model.name == resource_name
           File.open(File.join(destination_path('models'), "#{model.name}.rb"), 'w') do |f|

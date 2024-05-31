@@ -12,7 +12,15 @@
 module Ari
   class Application < Resource
 
-    attr_reader :name, :channel_ids, :bridge_ids, :endpoint_ids, :device_names
+    attr_reader :name, :channel_ids, :bridge_ids, :endpoint_ids, :device_names, :events_allowed, :events_disallowed
+
+    def events_allowed=(val)
+      @events_allowed ||= val.map { |v| object.new(v) }
+    end
+
+    def events_disallowed=(val)
+      @events_disallowed ||= val.map { |v| object.new(v) }
+    end
 
 
     # GET /applications
@@ -90,6 +98,27 @@ module Ari
 
     def unsubscribe(options = {})
       self.class.unsubscribe(options.merge(applicationName: self.id, client: @client))
+    end
+
+    # PUT /applications/%{applicationName}/eventFilter
+    #
+    # Stasis application
+    #
+    #
+    # Parameters:
+    #
+    # applicationName (required) - Application's name
+    # filter  - Specify which event types to allow/disallow
+    #
+    def self.filter(options = {})
+      raise ArgumentError.new("Parameter applicationName must be passed in options hash.") unless options[:applicationName]
+      path = '/applications/%{applicationName}/eventFilter' % options
+      response = client(options).put(path, options)
+      Application.new(response.merge(client: options[:client]))
+    end
+
+    def filter(options = {})
+      self.class.filter(options.merge(applicationName: self.id, client: @client))
     end
 
 

@@ -12,7 +12,7 @@
 module Ari
   class Playback < Resource
 
-    attr_reader :id, :media_uri, :target_uri, :language, :state
+    attr_reader :id, :media_uri, :next_media_uri, :target_uri, :language, :state
 
 
     # GET /playbacks/%{playbackId}
@@ -47,7 +47,7 @@ module Ari
     def self.stop(options = {})
       raise ArgumentError.new("Parameter playbackId must be passed in options hash.") unless options[:playbackId]
       path = '/playbacks/%{playbackId}' % options
-      response = client(options).delete(path, options)
+      client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
     end
@@ -70,7 +70,7 @@ module Ari
       raise ArgumentError.new("Parameter playbackId must be passed in options hash.") unless options[:playbackId]
       raise ArgumentError.new("Parameter operation must be passed in options hash.") unless options[:operation]
       path = '/playbacks/%{playbackId}/control' % options
-      response = client(options).post(path, options)
+      client(options).post(path, options)
     end
 
     def control(options = {})

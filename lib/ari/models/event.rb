@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Event < Message
 
-    attr_reader :type, :asterisk_id
+    attr_reader :application, :timestamp
+
+    def timestamp=(val)
+      @timestamp ||= Time.parse(val)
+    end
 
 
   end

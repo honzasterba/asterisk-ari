@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Module < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :name, :description, :use_count, :status, :support_level
 
 
   end

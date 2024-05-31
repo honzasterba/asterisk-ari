@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Sound < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :id, :text, :formats
+
+    def formats=(val)
+      @formats ||= val.map { |v| FormatLangPair.new(v) }
+    end
 
 
   end

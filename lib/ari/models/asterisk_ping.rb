@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class AsteriskPing < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :asterisk_id, :ping, :timestamp
 
 
   end

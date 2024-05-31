@@ -10,9 +10,17 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class ContactStatusChange < Event
 
-    attr_reader :type, :asterisk_id
+    attr_reader :endpoint, :contact_info
+
+    def endpoint=(val)
+      @endpoint ||= Endpoint.new(val)
+    end
+
+    def contact_info=(val)
+      @contact_info ||= ContactInfo.new(val)
+    end
 
 
   end

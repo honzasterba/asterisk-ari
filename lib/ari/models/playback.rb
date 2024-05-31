@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Playback < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :id, :media_uri, :next_media_uri, :target_uri, :language, :state
 
 
   end

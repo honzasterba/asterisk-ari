@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class BridgeVideoSourceChanged < Event
 
-    attr_reader :type, :asterisk_id
+    attr_reader :bridge, :old_video_source_id
+
+    def bridge=(val)
+      @bridge ||= Bridge.new(val)
+    end
 
 
   end

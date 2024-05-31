@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Endpoint < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :technology, :resource, :state, :channel_ids
 
 
   end

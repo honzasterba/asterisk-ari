@@ -1,5 +1,5 @@
 require "bundler/gem_tasks"
-require 'open-uri'
+require 'net/http'
 require 'json'
 require 'ari/generators/resource_generator'
 require "rake/testtask"
@@ -12,11 +12,10 @@ end
 
 desc "Generate resources from JSON specification"
 task :generate do
-
-  base_url = 'http://svn.asterisk.org/svn/asterisk/trunk/rest-api/api-docs/%{resource_name}.json'
-  resources = %w{ applications asterisk bridges channels deviceStates endpoints
-    events mailboxes playbacks recordings sounds
-  }
+  base_url = 'https://raw.githubusercontent.com/asterisk/asterisk/master/rest-api%{path}'
+  spec_url = base_url % { path: "/resources.json" }
+  spec = Net::HTTP.get URI.parse(spec_url)
+  resources = JSON.parse(spec)["apis"]
 
   resource_options = {
     asterisk: {
@@ -38,10 +37,11 @@ task :generate do
   FileUtils.rm_f resources_path
   resources_file = File.new(resources_path, 'a')
 
-  resources.each do |resource_name|
-    url = base_url % { resource_name: resource_name }
+  resources.each do |resource|
+    url = base_url % { path: resource["path"].gsub("{format}", "json") }
+    resource_name = resource["path"].split(/[\/.]/)[-2]
     puts ">> generating #{resource_name} from #{url}"
-    json = JSON.parse open(url).read
+    json = JSON.parse Net::HTTP.get(URI.parse(url))
     generator = Ari::Generators::ResourceGenerator.new(
       resource_name,
       json,
@@ -57,5 +57,4 @@ task :generate do
   end
 
   models_file.close
-
 end

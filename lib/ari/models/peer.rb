@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Peer < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :peer_status, :cause, :address, :port, :time
 
 
   end

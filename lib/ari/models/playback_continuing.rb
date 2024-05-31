@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class PlaybackContinuing < Event
 
-    attr_reader :type, :asterisk_id
+    attr_reader :playback
+
+    def playback=(val)
+      @playback ||= Playback.new(val)
+    end
 
 
   end

@@ -33,8 +33,8 @@ module Ari
     #
     # Parameters:
     #
-    # to (required) - The endpoint resource or technology specific URI to send the message to. Valid resources are sip, pjsip, and xmpp.
-    # from (required) - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
+    # to (required) - The endpoint resource or technology specific URI to send the message to. Valid resources are pjsip, and xmpp.
+    # from (required) - The endpoint resource or technology specific identity to send this message from. Valid resources are pjsip, and xmpp.
     # body  - The body of the message
     # variables  - 
     #
@@ -42,9 +42,30 @@ module Ari
       raise ArgumentError.new("Parameter to must be passed in options hash.") unless options[:to]
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       path = '/endpoints/sendMessage'
-      response = client(options).put(path, options)
+      client(options).put(path, options)
     end
     class << self; alias_method :sendMessage, :send_message; end
+
+    # POST /endpoints/refer
+    #
+    # Refer an endpoint or technology URI to some technology URI or endpoint.
+    #
+    #
+    # Parameters:
+    #
+    # to (required) - The endpoint resource or technology specific URI that should be referred to somewhere. Valid resource is pjsip.
+    # from (required) - The endpoint resource or technology specific identity to refer from.
+    # refer_to (required) - The endpoint resource or technology specific URI to refer to.
+    # to_self  - If true and "refer_to" refers to an Asterisk endpoint, the "refer_to" value is set to point to this Asterisk endpoint - so the referee is referred to Asterisk. Otherwise, use the contact URI associated with the endpoint.
+    # variables  - The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used by the various resource types; for example, the pjsip resource type will add the key/value pairs as SIP headers. The "display_name" key is used by the PJSIP technology. Its value will be prepended as a display name to the Refer-To URI.
+    #
+    def self.refer(options = {})
+      raise ArgumentError.new("Parameter to must be passed in options hash.") unless options[:to]
+      raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
+      raise ArgumentError.new("Parameter refer_to must be passed in options hash.") unless options[:refer_to]
+      path = '/endpoints/refer'
+      client(options).post(path, options)
+    end
 
     # GET /endpoints/%{tech}
     #
@@ -53,7 +74,7 @@ module Ari
     #
     # Parameters:
     #
-    # tech (required) - Technology of the endpoints (sip,iax2,...)
+    # tech (required) - Technology of the endpoints (pjsip,iax2,...)
     #
     def self.list_by_tech(options = {})
       raise ArgumentError.new("Parameter tech must be passed in options hash.") unless options[:tech]
@@ -98,7 +119,7 @@ module Ari
     #
     # tech (required) - Technology of the endpoint
     # resource (required) - ID of the endpoint
-    # from (required) - The endpoint resource or technology specific identity to send this message from. Valid resources are sip, pjsip, and xmpp.
+    # from (required) - The endpoint resource or technology specific identity to send this message from. Valid resources are pjsip and xmpp.
     # body  - The body of the message
     # variables  - 
     #
@@ -107,12 +128,40 @@ module Ari
       raise ArgumentError.new("Parameter resource must be passed in options hash.") unless options[:resource]
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       path = '/endpoints/%{tech}/%{resource}/sendMessage' % options
-      response = client(options).put(path, options)
+      client(options).put(path, options)
     end
     class << self; alias_method :sendMessageToEndpoint, :send_message_to_endpoint; end
 
     def send_message_to_endpoint(options = {})
       self.class.send_message_to_endpoint(options.merge(endpointId: self.id, client: @client))
+    end
+
+    # POST /endpoints/%{tech}/%{resource}/refer
+    #
+    # Refer an endpoint in a technology to some technology URI or endpoint..
+    #
+    #
+    # Parameters:
+    #
+    # tech (required) - Technology of the endpoint
+    # resource (required) - ID of the endpoint
+    # from (required) - The endpoint resource or technology specific identity to refer from.
+    # refer_to (required) - The endpoint resource or technology specific URI to refer to.
+    # to_self  - If true and "refer_to" refers to an Asterisk endpoint, the "refer_to" value is set to point to this Asterisk endpoint - so the referee is referred to Asterisk. Otherwise, use the contact URI associated with the endpoint.
+    # variables  - The "variables" key in the body object holds technology specific key/value pairs to append to the message. These can be interpreted and used by the various resource types; for example, the pjsip resource type will add the key/value pairs as SIP headers,
+    #
+    def self.refer_to_endpoint(options = {})
+      raise ArgumentError.new("Parameter tech must be passed in options hash.") unless options[:tech]
+      raise ArgumentError.new("Parameter resource must be passed in options hash.") unless options[:resource]
+      raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
+      raise ArgumentError.new("Parameter refer_to must be passed in options hash.") unless options[:refer_to]
+      path = '/endpoints/%{tech}/%{resource}/refer' % options
+      client(options).post(path, options)
+    end
+    class << self; alias_method :referToEndpoint, :refer_to_endpoint; end
+
+    def refer_to_endpoint(options = {})
+      self.class.refer_to_endpoint(options.merge(endpointId: self.id, client: @client))
     end
 
 

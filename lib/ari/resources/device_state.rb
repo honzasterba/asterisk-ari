@@ -61,7 +61,7 @@ module Ari
       raise ArgumentError.new("Parameter deviceName must be passed in options hash.") unless options[:deviceName]
       raise ArgumentError.new("Parameter deviceState must be passed in options hash.") unless options[:deviceState]
       path = '/deviceStates/%{deviceName}' % options
-      response = client(options).put(path, options)
+      client(options).put(path, options)
     end
 
     def update(options = {})
@@ -80,7 +80,7 @@ module Ari
     def self.delete(options = {})
       raise ArgumentError.new("Parameter deviceName must be passed in options hash.") unless options[:deviceName]
       path = '/deviceStates/%{deviceName}' % options
-      response = client(options).delete(path, options)
+      client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
     end

@@ -15,7 +15,7 @@ module Ari
     attr_reader :from, :to, :body, :variables
 
     def variables=(val)
-      @variables ||= val.map { |v| TextMessageVariable.new(v) }
+      @variables ||= object.new(val)
     end
 
 

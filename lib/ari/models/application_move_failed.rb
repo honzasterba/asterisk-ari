@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class ApplicationMoveFailed < Event
 
-    attr_reader :type, :asterisk_id
+    attr_reader :channel, :destination, :args
+
+    def channel=(val)
+      @channel ||= Channel.new(val)
+    end
 
 
   end

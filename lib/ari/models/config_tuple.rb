@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class ConfigTuple < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :attribute, :value
 
 
   end

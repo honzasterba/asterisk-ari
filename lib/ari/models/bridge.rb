@@ -10,9 +10,13 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Bridge < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :id, :technology, :bridge_type, :bridge_class, :creator, :name, :channels, :video_mode, :video_source_id, :creationtime
+
+    def creationtime=(val)
+      @creationtime ||= Time.parse(val)
+    end
 
 
   end

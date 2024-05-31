@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class Mailbox < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :name, :old_messages, :new_messages
 
 
   end

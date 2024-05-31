@@ -10,9 +10,17 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class PeerStatusChange < Event
 
-    attr_reader :type, :asterisk_id
+    attr_reader :endpoint, :peer
+
+    def endpoint=(val)
+      @endpoint ||= Endpoint.new(val)
+    end
+
+    def peer=(val)
+      @peer ||= Peer.new(val)
+    end
 
 
   end

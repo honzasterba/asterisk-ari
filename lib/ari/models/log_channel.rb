@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class TextMessageVariable < Model
+  class LogChannel < Model
 
-    attr_reader :key, :value
+    attr_reader :channel, :type, :status, :configuration
 
 
   end

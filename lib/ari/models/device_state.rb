@@ -10,9 +10,9 @@
 #------------------------------------------------------------------------------
 
 module Ari
-  class Message < Model
+  class DeviceState < Model
 
-    attr_reader :type, :asterisk_id
+    attr_reader :name, :state
 
 
   end

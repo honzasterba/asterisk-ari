@@ -63,7 +63,7 @@ module Ari
       <%- else -%>
       path = '<%= api.path %>'
       <%- end -%>
-      response = client(options).<%= operation.http_method.downcase %>(path, options)
+      <% if operation.returns_array? || operation.return_klass %>response = <% end %>client(options).<%= operation.http_method.downcase %>(path, options)
       <%- if operation.returns_array? -%>
       <%- if operation.return_klass -%>
       response.map { |hash| <%= operation.return_klass %>.new(hash.merge(client: options[:client])) }
