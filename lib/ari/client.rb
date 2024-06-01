@@ -101,6 +101,7 @@ module Ari
       http = Net::HTTP.new(@uri.host, @uri.port)
       http.open_timeout = @options[:open_timeout]
       http.read_timeout = @options[:read_timeout]
+      http.use_ssl = @uri.scheme == 'https'
       response = http.request(request)
       if response.body and !response.body.empty?
         object = MultiJson.load response.body
