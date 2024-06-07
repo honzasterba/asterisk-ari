@@ -58,6 +58,5 @@ module Ari
       @destination_threeway_bridge ||= Bridge.new(val)
     end
 
-
   end
 end

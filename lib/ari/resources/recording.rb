@@ -253,7 +253,6 @@ module Ari
       self.class.unmute(options.merge(recordingId: self.id, client: @client))
     end
 
-
   end
 end
 

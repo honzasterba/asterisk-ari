@@ -22,6 +22,5 @@ module Ari
       @setid ||= SetId.new(val)
     end
 
-
   end
 end

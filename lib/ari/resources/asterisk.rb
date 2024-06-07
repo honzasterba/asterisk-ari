@@ -322,7 +322,6 @@ module Ari
     end
     class << self; alias_method :setGlobalVar, :set_global_var; end
 
-
   end
 end
 

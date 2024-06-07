@@ -18,6 +18,5 @@ module Ari
       @device_state ||= DeviceState.new(val)
     end
 
-
   end
 end

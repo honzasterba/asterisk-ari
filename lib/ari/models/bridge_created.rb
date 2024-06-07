@@ -18,6 +18,5 @@ module Ari
       @bridge ||= Bridge.new(val)
     end
 
-
   end
 end

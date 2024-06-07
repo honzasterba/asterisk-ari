@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :language, :format
 
-
   end
 end

@@ -164,7 +164,6 @@ module Ari
       self.class.refer_to_endpoint(options.merge(endpointId: self.id, client: @client))
     end
 
-
   end
 end
 

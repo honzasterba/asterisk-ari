@@ -22,6 +22,5 @@ module Ari
       @replace_channel ||= Channel.new(val)
     end
 
-
   end
 end

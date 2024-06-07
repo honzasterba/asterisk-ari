@@ -55,7 +55,6 @@ module Ari
       self.class.get(options.merge(soundId: self.id, client: @client))
     end
 
-
   end
 end
 

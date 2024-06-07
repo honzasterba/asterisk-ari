@@ -77,7 +77,6 @@ module Ari
       self.class.control(options.merge(playbackId: self.id, client: @client))
     end
 
-
   end
 end
 

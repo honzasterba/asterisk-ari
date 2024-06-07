@@ -18,19 +18,8 @@ module Ari
     <%- end -%>
     <%- resource_attributes.each do |attribute| -%>
     <%- unless %{ string int long boolean }.include?(attribute.type) -%>
-    <%- attribute_value = begin
-      if attribute.type == 'Date'
-        'Time.parse(val)'
-      else
-        if attribute.is_a_list?
-          "val.map { |v| #{attribute.type}.new(v) }"
-        else
-          attribute.type + '.new(val)'
-        end
-      end
-    end -%>
     def <%= attribute.name %>=(val)
-      @<%= attribute.name %> ||= <%= attribute_value %>
+      @<%= attribute.name %> ||= <%= attribute.value_code("val") %>
     end
 
     <%- end -%>
@@ -90,7 +79,6 @@ module Ari
 
     <%- end -%>
     <%- end unless generate_only_models? -%>
-
   end
 end
 

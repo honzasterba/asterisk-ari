@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :name, :description, :use_count, :status, :support_level
 
-
   end
 end

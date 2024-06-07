@@ -18,6 +18,5 @@ module Ari
       @recording ||= LiveRecording.new(val)
     end
 
-
   end
 end

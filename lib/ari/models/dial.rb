@@ -26,6 +26,5 @@ module Ari
       @forwarded ||= Channel.new(val)
     end
 
-
   end
 end

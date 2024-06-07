@@ -15,9 +15,8 @@ module Ari
     attr_reader :from, :to, :body, :variables
 
     def variables=(val)
-      @variables ||= object.new(val)
+      @variables ||= val
     end
-
 
   end
 end

@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :type, :asterisk_id
 
-
   end
 end

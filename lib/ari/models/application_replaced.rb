@@ -12,6 +12,5 @@
 module Ari
   class ApplicationReplaced < Event
 
-
   end
 end

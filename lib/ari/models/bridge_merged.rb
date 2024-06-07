@@ -22,6 +22,5 @@ module Ari
       @bridge_from ||= Bridge.new(val)
     end
 
-
   end
 end

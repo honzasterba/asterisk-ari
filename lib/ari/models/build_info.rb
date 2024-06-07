@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :os, :kernel, :options, :machine, :date, :user
 
-
   end
 end

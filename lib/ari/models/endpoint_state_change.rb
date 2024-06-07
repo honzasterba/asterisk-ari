@@ -18,6 +18,5 @@ module Ari
       @endpoint ||= Endpoint.new(val)
     end
 
-
   end
 end

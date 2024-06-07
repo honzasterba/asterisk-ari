@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :value
 
-
   end
 end

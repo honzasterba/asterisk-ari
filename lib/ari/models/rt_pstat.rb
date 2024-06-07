@@ -106,6 +106,5 @@ module Ari
       @stdevrtt ||= double.new(val)
     end
 
-
   end
 end

@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :peer_status, :cause, :address, :port, :time
 
-
   end
 end

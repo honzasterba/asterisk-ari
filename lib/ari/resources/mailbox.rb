@@ -90,7 +90,6 @@ module Ari
       self.class.delete(options.merge(mailboxId: self.id, client: @client))
     end
 
-
   end
 end
 

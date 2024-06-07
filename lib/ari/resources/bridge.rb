@@ -333,7 +333,6 @@ module Ari
       self.class.record(options.merge(bridgeId: self.id, client: @client))
     end
 
-
   end
 end
 

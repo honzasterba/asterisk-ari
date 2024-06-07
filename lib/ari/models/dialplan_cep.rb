@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :context, :exten, :priority, :app_name, :app_data
 
-
   end
 end

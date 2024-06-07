@@ -31,7 +31,7 @@ module Ari
     end
 
     def channelvars=(val)
-      @channelvars ||= object.new(val)
+      @channelvars ||= val
     end
 
 
@@ -748,7 +748,6 @@ module Ari
       Channel.new(response.merge(client: options[:client]))
     end
     class << self; alias_method :externalMedia, :external_media; end
-
 
   end
 end

@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :name, :format, :target_uri, :state, :duration, :talking_duration, :silence_duration, :cause
 
-
   end
 end

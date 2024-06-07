@@ -30,6 +30,5 @@ module Ari
       @status ||= StatusInfo.new(val)
     end
 
-
   end
 end

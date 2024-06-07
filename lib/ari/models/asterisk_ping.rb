@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :asterisk_id, :ping, :timestamp
 
-
   end
 end

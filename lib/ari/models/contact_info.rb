@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :uri, :contact_status, :aor, :roundtrip_usec
 
-
   end
 end

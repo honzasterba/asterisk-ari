@@ -89,7 +89,6 @@ module Ari
       self.class.delete(options.merge(deviceStateId: self.id, client: @client))
     end
 
-
   end
 end
 

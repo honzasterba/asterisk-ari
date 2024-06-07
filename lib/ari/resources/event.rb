@@ -19,7 +19,6 @@ module Ari
     end
 
 
-
   end
 end
 

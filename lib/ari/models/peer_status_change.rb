@@ -22,6 +22,5 @@ module Ari
       @peer ||= Peer.new(val)
     end
 
-
   end
 end

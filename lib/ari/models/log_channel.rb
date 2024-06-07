@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :channel, :type, :status, :configuration
 
-
   end
 end

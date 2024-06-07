@@ -22,6 +22,5 @@ module Ari
       @last_reload_time ||= Time.parse(val)
     end
 
-
   end
 end

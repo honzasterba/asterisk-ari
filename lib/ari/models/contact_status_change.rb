@@ -22,6 +22,5 @@ module Ari
       @contact_info ||= ContactInfo.new(val)
     end
 
-
   end
 end

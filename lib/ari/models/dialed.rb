@@ -12,6 +12,5 @@
 module Ari
   class Dialed < Model
 
-
   end
 end

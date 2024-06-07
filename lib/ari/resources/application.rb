@@ -15,11 +15,11 @@ module Ari
     attr_reader :name, :channel_ids, :bridge_ids, :endpoint_ids, :device_names, :events_allowed, :events_disallowed
 
     def events_allowed=(val)
-      @events_allowed ||= val.map { |v| object.new(v) }
+      @events_allowed ||= val.map { |v| v }
     end
 
     def events_disallowed=(val)
-      @events_disallowed ||= val.map { |v| object.new(v) }
+      @events_disallowed ||= val.map { |v| v }
     end
 
 
@@ -120,7 +120,6 @@ module Ari
     def filter(options = {})
       self.class.filter(options.merge(applicationName: self.id, client: @client))
     end
-
 
   end
 end

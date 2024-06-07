@@ -14,6 +14,5 @@ module Ari
 
     attr_reader :version, :entity_id
 
-
   end
 end

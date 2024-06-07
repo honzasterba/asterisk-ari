@@ -18,6 +18,5 @@ module Ari
       @playback ||= Playback.new(val)
     end
 
-
   end
 end
