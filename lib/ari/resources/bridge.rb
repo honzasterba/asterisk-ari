@@ -26,6 +26,7 @@ module Ari
     #
     def self.list(options = {})
       path = '/bridges'
+      
       response = client(options).get(path, options)
       response.map { |hash| Bridge.new(hash.merge(client: options[:client])) }
     end
@@ -43,6 +44,7 @@ module Ari
     #
     def self.create(options = {})
       path = '/bridges'
+      
       response = client(options).post(path, options)
       Bridge.new(response.merge(client: options[:client]))
     end
@@ -61,6 +63,7 @@ module Ari
     def self.create_with_id(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}' % options
+      
       response = client(options).post(path, options)
       Bridge.new(response.merge(client: options[:client]))
     end
@@ -82,6 +85,7 @@ module Ari
     def self.get(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}' % options
+      
       response = client(options).get(path, options)
       Bridge.new(response.merge(client: options[:client]))
     end
@@ -102,6 +106,7 @@ module Ari
     def self.destroy(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -129,6 +134,7 @@ module Ari
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       raise ArgumentError.new("Parameter channel must be passed in options hash.") unless options[:channel]
       path = '/bridges/%{bridgeId}/addChannel' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :addChannel, :add_channel; end
@@ -151,6 +157,7 @@ module Ari
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       raise ArgumentError.new("Parameter channel must be passed in options hash.") unless options[:channel]
       path = '/bridges/%{bridgeId}/removeChannel' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :removeChannel, :remove_channel; end
@@ -174,6 +181,7 @@ module Ari
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       raise ArgumentError.new("Parameter channelId must be passed in options hash.") unless options[:channelId]
       path = '/bridges/%{bridgeId}/videoSource/%{channelId}' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :setVideoSource, :set_video_source; end
@@ -197,6 +205,7 @@ module Ari
     def self.clear_video_source(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}/videoSource' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -220,6 +229,7 @@ module Ari
     def self.start_moh(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}/moh' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :startMoh, :start_moh; end
@@ -240,6 +250,7 @@ module Ari
     def self.stop_moh(options = {})
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       path = '/bridges/%{bridgeId}/moh' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -268,6 +279,7 @@ module Ari
       raise ArgumentError.new("Parameter bridgeId must be passed in options hash.") unless options[:bridgeId]
       raise ArgumentError.new("Parameter media must be passed in options hash.") unless options[:media]
       path = '/bridges/%{bridgeId}/play' % options
+      
       response = client(options).post(path, options)
       Playback.new(response.merge(client: options[:client]))
     end
@@ -295,6 +307,7 @@ module Ari
       raise ArgumentError.new("Parameter playbackId must be passed in options hash.") unless options[:playbackId]
       raise ArgumentError.new("Parameter media must be passed in options hash.") unless options[:media]
       path = '/bridges/%{bridgeId}/play/%{playbackId}' % options
+      
       response = client(options).post(path, options)
       Playback.new(response.merge(client: options[:client]))
     end
@@ -325,6 +338,7 @@ module Ari
       raise ArgumentError.new("Parameter name must be passed in options hash.") unless options[:name]
       raise ArgumentError.new("Parameter format must be passed in options hash.") unless options[:format]
       path = '/bridges/%{bridgeId}/record' % options
+      
       response = client(options).post(path, options)
       LiveRecording.new(response.merge(client: options[:client]))
     end

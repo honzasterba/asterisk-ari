@@ -20,6 +20,7 @@ module Ari
     #
     def self.list_stored(options = {})
       path = '/recordings/stored'
+      
       response = client(options).get(path, options)
       response.map { |hash| StoredRecording.new(hash.merge(client: options[:client])) }
     end
@@ -37,6 +38,7 @@ module Ari
     def self.get_stored(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/stored/%{recordingName}' % options
+      
       response = client(options).get(path, options)
       StoredRecording.new(response.merge(client: options[:client]))
     end
@@ -58,6 +60,7 @@ module Ari
     def self.delete_stored(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/stored/%{recordingName}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -80,8 +83,9 @@ module Ari
     def self.get_stored_file(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/stored/%{recordingName}/file' % options
+      options[:headers] = Ari::Client::HTTP_HEADERS_BASE
       response = client(options).get(path, options)
-      binary.new(response.merge(client: options[:client]))
+      response
     end
     class << self; alias_method :getStoredFile, :get_stored_file; end
 
@@ -103,6 +107,7 @@ module Ari
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       raise ArgumentError.new("Parameter destinationRecordingName must be passed in options hash.") unless options[:destinationRecordingName]
       path = '/recordings/stored/%{recordingName}/copy' % options
+      
       response = client(options).post(path, options)
       StoredRecording.new(response.merge(client: options[:client]))
     end
@@ -124,6 +129,7 @@ module Ari
     def self.get_live(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}' % options
+      
       response = client(options).get(path, options)
       LiveRecording.new(response.merge(client: options[:client]))
     end
@@ -145,6 +151,7 @@ module Ari
     def self.cancel(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -166,6 +173,7 @@ module Ari
     def self.stop(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}/stop' % options
+      
       client(options).post(path, options)
     end
 
@@ -185,6 +193,7 @@ module Ari
     def self.pause(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}/pause' % options
+      
       client(options).post(path, options)
     end
 
@@ -204,6 +213,7 @@ module Ari
     def self.unpause(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}/pause' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -225,6 +235,7 @@ module Ari
     def self.mute(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}/mute' % options
+      
       client(options).post(path, options)
     end
 
@@ -244,6 +255,7 @@ module Ari
     def self.unmute(options = {})
       raise ArgumentError.new("Parameter recordingName must be passed in options hash.") unless options[:recordingName]
       path = '/recordings/live/%{recordingName}/mute' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'

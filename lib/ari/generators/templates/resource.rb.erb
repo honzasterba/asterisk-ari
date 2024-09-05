@@ -52,6 +52,7 @@ module Ari
       <%- else -%>
       path = '<%= api.path %>'
       <%- end -%>
+      <% if operation.return_klass == "binary" -%>options[:headers] = Ari::Client::HTTP_HEADERS_BASE<%- end %>
       <% if operation.returns_array? || operation.return_klass %>response = <% end %>client(options).<%= operation.http_method.downcase %>(path, options)
       <%- if operation.returns_array? -%>
       <%- if operation.return_klass -%>
@@ -59,6 +60,8 @@ module Ari
       <%- else -%>
       response.map { |hash| <%= operation.return_klass %>.new(hash) }
       <%- end -%>
+      <%- elsif operation.return_klass == "binary" -%>
+      response
       <%- elsif operation.return_klass -%>
       <%= operation.return_klass %>.new(response.merge(client: options[:client]))
       <%- end -%>

@@ -15,12 +15,15 @@ module Ari
       :url => 'http://localhost:8088/ari'
     }
 
-    HTTP_HEADERS = {
+    HTTP_HEADERS_BASE = {
       'Content-Type'    => 'application/json',
-      'Accept'          => 'application/json',
-      'Accept-Charset'  => 'utf-8',
       'User-Agent'      => "asterisk-ari-client/#{::Asterisk::Ari::Client::VERSION} ruby/#{RUBY_VERSION}"
     }
+
+    HTTP_HEADERS = HTTP_HEADERS_BASE.merge(
+      'Accept'          => 'application/json',
+      'Accept-Charset'  => 'utf-8',
+    )
 
     def initialize(options = {})
       @options = DEFAULTS.merge options
@@ -31,12 +34,12 @@ module Ari
     %w{ get put post delete }.each do |http_method|
       method_klass = Net::HTTP.const_get http_method.to_s.capitalize
       define_method http_method do |path, params = {}|
-        request_body = params.delete(:body)
-        params.merge!({ api_key: @options[:api_key], app: @options[:app] })
-        query_string = URI.encode_www_form params
+        query_params = params.except(:client, :headers, :body)
+        query_params.merge!({ api_key: @options[:api_key], app: @options[:app] })
+        query_string = URI.encode_www_form query_params
         request_path = "#{@uri.path}#{path}?#{query_string}"
-        request = method_klass.new request_path, HTTP_HEADERS
-        request.body = request_body.is_a?(Hash) ? MultiJson.dump(request_body) : request_body
+        request = method_klass.new(request_path, params[:headers] || HTTP_HEADERS)
+        request.body = params[:body].is_a?(Hash) ? MultiJson.dump(params[:body]) : params[:body]
         send_request request
       end
     end

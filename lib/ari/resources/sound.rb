@@ -31,6 +31,7 @@ module Ari
     #
     def self.list(options = {})
       path = '/sounds'
+      
       response = client(options).get(path, options)
       response.map { |hash| Sound.new(hash.merge(client: options[:client])) }
     end
@@ -47,6 +48,7 @@ module Ari
     def self.get(options = {})
       raise ArgumentError.new("Parameter soundId must be passed in options hash.") unless options[:soundId]
       path = '/sounds/%{soundId}' % options
+      
       response = client(options).get(path, options)
       Sound.new(response.merge(client: options[:client]))
     end

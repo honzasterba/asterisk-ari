@@ -29,6 +29,7 @@ module Ari
       raise ArgumentError.new("Parameter objectType must be passed in options hash.") unless options[:objectType]
       raise ArgumentError.new("Parameter id must be passed in options hash.") unless options[:id]
       path = '/asterisk/config/dynamic/%{configClass}/%{objectType}/%{id}' % options
+      
       response = client(options).get(path, options)
       response.map { |hash| ConfigTuple.new(hash.merge(client: options[:client])) }
     end
@@ -55,6 +56,7 @@ module Ari
       raise ArgumentError.new("Parameter objectType must be passed in options hash.") unless options[:objectType]
       raise ArgumentError.new("Parameter id must be passed in options hash.") unless options[:id]
       path = '/asterisk/config/dynamic/%{configClass}/%{objectType}/%{id}' % options
+      
       response = client(options).put(path, options)
       response.map { |hash| ConfigTuple.new(hash.merge(client: options[:client])) }
     end
@@ -80,6 +82,7 @@ module Ari
       raise ArgumentError.new("Parameter objectType must be passed in options hash.") unless options[:objectType]
       raise ArgumentError.new("Parameter id must be passed in options hash.") unless options[:id]
       path = '/asterisk/config/dynamic/%{configClass}/%{objectType}/%{id}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -101,6 +104,7 @@ module Ari
     #
     def self.get_info(options = {})
       path = '/asterisk/info'
+      
       response = client(options).get(path, options)
       AsteriskInfo.new(response.merge(client: options[:client]))
     end
@@ -113,6 +117,7 @@ module Ari
     #
     def self.ping(options = {})
       path = '/asterisk/ping'
+      
       response = client(options).get(path, options)
       AsteriskPing.new(response.merge(client: options[:client]))
     end
@@ -124,6 +129,7 @@ module Ari
     #
     def self.list_modules(options = {})
       path = '/asterisk/modules'
+      
       response = client(options).get(path, options)
       response.map { |hash| Module.new(hash.merge(client: options[:client])) }
     end
@@ -141,6 +147,7 @@ module Ari
     def self.get_module(options = {})
       raise ArgumentError.new("Parameter moduleName must be passed in options hash.") unless options[:moduleName]
       path = '/asterisk/modules/%{moduleName}' % options
+      
       response = client(options).get(path, options)
       Module.new(response.merge(client: options[:client]))
     end
@@ -162,6 +169,7 @@ module Ari
     def self.load_module(options = {})
       raise ArgumentError.new("Parameter moduleName must be passed in options hash.") unless options[:moduleName]
       path = '/asterisk/modules/%{moduleName}' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :loadModule, :load_module; end
@@ -182,6 +190,7 @@ module Ari
     def self.unload_module(options = {})
       raise ArgumentError.new("Parameter moduleName must be passed in options hash.") unless options[:moduleName]
       path = '/asterisk/modules/%{moduleName}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -204,6 +213,7 @@ module Ari
     def self.reload_module(options = {})
       raise ArgumentError.new("Parameter moduleName must be passed in options hash.") unless options[:moduleName]
       path = '/asterisk/modules/%{moduleName}' % options
+      
       client(options).put(path, options)
     end
     class << self; alias_method :reloadModule, :reload_module; end
@@ -219,6 +229,7 @@ module Ari
     #
     def self.list_log_channels(options = {})
       path = '/asterisk/logging'
+      
       response = client(options).get(path, options)
       response.map { |hash| LogChannel.new(hash.merge(client: options[:client])) }
     end
@@ -238,6 +249,7 @@ module Ari
       raise ArgumentError.new("Parameter logChannelName must be passed in options hash.") unless options[:logChannelName]
       raise ArgumentError.new("Parameter configuration must be passed in options hash.") unless options[:configuration]
       path = '/asterisk/logging/%{logChannelName}' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :addLog, :add_log; end
@@ -258,6 +270,7 @@ module Ari
     def self.delete_log(options = {})
       raise ArgumentError.new("Parameter logChannelName must be passed in options hash.") unless options[:logChannelName]
       path = '/asterisk/logging/%{logChannelName}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'
@@ -280,6 +293,7 @@ module Ari
     def self.rotate_log(options = {})
       raise ArgumentError.new("Parameter logChannelName must be passed in options hash.") unless options[:logChannelName]
       path = '/asterisk/logging/%{logChannelName}/rotate' % options
+      
       client(options).put(path, options)
     end
     class << self; alias_method :rotateLog, :rotate_log; end
@@ -300,6 +314,7 @@ module Ari
     def self.get_global_var(options = {})
       raise ArgumentError.new("Parameter variable must be passed in options hash.") unless options[:variable]
       path = '/asterisk/variable'
+      
       response = client(options).get(path, options)
       Variable.new(response.merge(client: options[:client]))
     end
@@ -318,6 +333,7 @@ module Ari
     def self.set_global_var(options = {})
       raise ArgumentError.new("Parameter variable must be passed in options hash.") unless options[:variable]
       path = '/asterisk/variable'
+      
       client(options).post(path, options)
     end
     class << self; alias_method :setGlobalVar, :set_global_var; end

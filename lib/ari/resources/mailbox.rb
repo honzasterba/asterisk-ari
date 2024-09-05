@@ -22,6 +22,7 @@ module Ari
     #
     def self.list(options = {})
       path = '/mailboxes'
+      
       response = client(options).get(path, options)
       response.map { |hash| Mailbox.new(hash.merge(client: options[:client])) }
     end
@@ -38,6 +39,7 @@ module Ari
     def self.get(options = {})
       raise ArgumentError.new("Parameter mailboxName must be passed in options hash.") unless options[:mailboxName]
       path = '/mailboxes/%{mailboxName}' % options
+      
       response = client(options).get(path, options)
       Mailbox.new(response.merge(client: options[:client]))
     end
@@ -62,6 +64,7 @@ module Ari
       raise ArgumentError.new("Parameter oldMessages must be passed in options hash.") unless options[:oldMessages]
       raise ArgumentError.new("Parameter newMessages must be passed in options hash.") unless options[:newMessages]
       path = '/mailboxes/%{mailboxName}' % options
+      
       client(options).put(path, options)
     end
 
@@ -81,6 +84,7 @@ module Ari
     def self.delete(options = {})
       raise ArgumentError.new("Parameter mailboxName must be passed in options hash.") unless options[:mailboxName]
       path = '/mailboxes/%{mailboxName}' % options
+      
       client(options).delete(path, options)
     rescue Ari::RequestError => e
       raise unless e.code == '404'

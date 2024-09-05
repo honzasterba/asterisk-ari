@@ -22,6 +22,7 @@ module Ari
     #
     def self.list(options = {})
       path = '/endpoints'
+      
       response = client(options).get(path, options)
       response.map { |hash| Endpoint.new(hash.merge(client: options[:client])) }
     end
@@ -42,6 +43,7 @@ module Ari
       raise ArgumentError.new("Parameter to must be passed in options hash.") unless options[:to]
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       path = '/endpoints/sendMessage'
+      
       client(options).put(path, options)
     end
     class << self; alias_method :sendMessage, :send_message; end
@@ -64,6 +66,7 @@ module Ari
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       raise ArgumentError.new("Parameter refer_to must be passed in options hash.") unless options[:refer_to]
       path = '/endpoints/refer'
+      
       client(options).post(path, options)
     end
 
@@ -79,6 +82,7 @@ module Ari
     def self.list_by_tech(options = {})
       raise ArgumentError.new("Parameter tech must be passed in options hash.") unless options[:tech]
       path = '/endpoints/%{tech}' % options
+      
       response = client(options).get(path, options)
       response.map { |hash| Endpoint.new(hash.merge(client: options[:client])) }
     end
@@ -102,6 +106,7 @@ module Ari
       raise ArgumentError.new("Parameter tech must be passed in options hash.") unless options[:tech]
       raise ArgumentError.new("Parameter resource must be passed in options hash.") unless options[:resource]
       path = '/endpoints/%{tech}/%{resource}' % options
+      
       response = client(options).get(path, options)
       Endpoint.new(response.merge(client: options[:client]))
     end
@@ -128,6 +133,7 @@ module Ari
       raise ArgumentError.new("Parameter resource must be passed in options hash.") unless options[:resource]
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       path = '/endpoints/%{tech}/%{resource}/sendMessage' % options
+      
       client(options).put(path, options)
     end
     class << self; alias_method :sendMessageToEndpoint, :send_message_to_endpoint; end
@@ -156,6 +162,7 @@ module Ari
       raise ArgumentError.new("Parameter from must be passed in options hash.") unless options[:from]
       raise ArgumentError.new("Parameter refer_to must be passed in options hash.") unless options[:refer_to]
       path = '/endpoints/%{tech}/%{resource}/refer' % options
+      
       client(options).post(path, options)
     end
     class << self; alias_method :referToEndpoint, :refer_to_endpoint; end

@@ -30,6 +30,7 @@ module Ari
     #
     def self.list(options = {})
       path = '/applications'
+      
       response = client(options).get(path, options)
       response.map { |hash| Application.new(hash.merge(client: options[:client])) }
     end
@@ -46,6 +47,7 @@ module Ari
     def self.get(options = {})
       raise ArgumentError.new("Parameter applicationName must be passed in options hash.") unless options[:applicationName]
       path = '/applications/%{applicationName}' % options
+      
       response = client(options).get(path, options)
       Application.new(response.merge(client: options[:client]))
     end
@@ -68,6 +70,7 @@ module Ari
       raise ArgumentError.new("Parameter applicationName must be passed in options hash.") unless options[:applicationName]
       raise ArgumentError.new("Parameter eventSource must be passed in options hash.") unless options[:eventSource]
       path = '/applications/%{applicationName}/subscription' % options
+      
       response = client(options).post(path, options)
       Application.new(response.merge(client: options[:client]))
     end
@@ -90,6 +93,7 @@ module Ari
       raise ArgumentError.new("Parameter applicationName must be passed in options hash.") unless options[:applicationName]
       raise ArgumentError.new("Parameter eventSource must be passed in options hash.") unless options[:eventSource]
       path = '/applications/%{applicationName}/subscription' % options
+      
       response = client(options).delete(path, options)
       Application.new(response.merge(client: options[:client]))
     rescue Ari::RequestError => e
@@ -113,6 +117,7 @@ module Ari
     def self.filter(options = {})
       raise ArgumentError.new("Parameter applicationName must be passed in options hash.") unless options[:applicationName]
       path = '/applications/%{applicationName}/eventFilter' % options
+      
       response = client(options).put(path, options)
       Application.new(response.merge(client: options[:client]))
     end
