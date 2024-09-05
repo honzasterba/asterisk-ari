@@ -106,17 +106,24 @@ module Ari
       http.read_timeout = @options[:read_timeout]
       http.use_ssl = @uri.scheme == 'https'
       response = http.request(request)
-      if response.body and !response.body.empty?
-        object = MultiJson.load response.body
-      else
-        object = true
-      end
+      response_parsed = parse_response(response)
       if response.kind_of? Net::HTTPClientError
-        raise Ari::RequestError.new(response.code), (object['message'] || object['error'])
+        raise Ari::RequestError.new(response.code), (response_parsed['message'] || response_parsed['error'])
       elsif response.kind_of? Net::HTTPServerError
-        raise Ari::ServerError.new(response.code), (object['message'] || object['error'])
+        raise Ari::ServerError.new(response.code), (response_parsed['message'] || response_parsed['error'])
       end
-      object
+      response_parsed
+    end
+
+    def parse_response(response)
+      body = response.body
+      return true if !body || body.empty?
+      json = response['Content-Type'] == 'application/json'
+      if json
+        MultiJson.load body
+      else
+        body
+      end
     end
 
     def self.instance_listeners
