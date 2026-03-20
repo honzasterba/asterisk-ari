@@ -104,7 +104,10 @@ module Ari
       http = Net::HTTP.new(@uri.host, @uri.port)
       http.open_timeout = @options[:open_timeout]
       http.read_timeout = @options[:read_timeout]
-      http.use_ssl = @uri.scheme == 'https'
+      if @uri.scheme == 'https'
+        http.use_ssl = true
+        http.verify_mode = OpenSSL::SSL::VERIFY_NONE
+      end
       response = http.request(request)
       response_parsed = parse_response(response)
       if response.kind_of? Net::HTTPClientError
